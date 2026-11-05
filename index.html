@@ -57,7 +57,6 @@
       </section>
 
       <button id="mobileCityCard" class="mobile-city-card" type="button" aria-label="Abrir detalhes da cidade atual" aria-expanded="false">
-        <span class="mobile-city-step" id="mobileStage">01</span>
         <span class="mobile-city-text">
           <strong id="mobileCityName">Piaçabuçu</strong>
           <small id="mobileCityStatus">Placa verificada</small>
@@ -71,32 +70,32 @@
         </button>
 
         <div class="mobile-sheet-content">
-          <div class="mobile-sheet-kicker">
-            ETAPA <span id="mobileSheetStage">01</span>
-          </div>
-
-          <h2 id="mobileSheetCity" tabindex="-1">Piaçabuçu</h2>
+          <figure class="city-cover">
+            <img id="mobileSheetPhoto" width="640" height="360" decoding="async" alt="">
+            <figcaption><h2 id="mobileSheetCity" tabindex="-1">Piaçabuçu</h2></figcaption>
+          </figure>
+          <div id="mobileSheetPhotoCredit" class="city-photo-credit"></div>
           <p id="mobileSheetDescription"></p>
           <a id="mobileSheetPermalink" class="point-link" target="_blank" rel="noopener noreferrer">Link direto deste ponto ↗</a>
-          <section class="city-history" aria-label="Contexto histórico">
-            <h3>Durante a passagem do imperador</h3>
+          <details name="city-info-mobile" class="city-history" aria-label="Contexto histórico">
+            <summary>Durante a passagem do imperador</summary>
             <p class="visit-status">Relação com a viagem: <strong id="mobileSheetVisitStatus"></strong></p>
             <p id="mobileSheetHistory"></p>
             <div id="mobileSheetHistorySources" class="city-history-sources"></div>
-          </section>
-          <section class="city-history" aria-label="Contexto regional">
-            <h3>O que conhecer na região</h3>
+          </details>
+          <details name="city-info-mobile" class="city-history" aria-label="Contexto regional">
+            <summary>O que conhecer na região</summary>
             <p id="mobileSheetRegion"></p>
             <div id="mobileSheetRegionSources" class="city-history-sources"></div>
-          </section>
-          <section class="city-history city-hospitality" aria-label="Hospedagem e alimentação">
-            <h3>Onde ficar e comer</h3>
+          </details>
+          <details name="city-info-mobile" class="city-history city-hospitality" aria-label="Hospedagem e alimentação">
+            <summary>Onde ficar e comer</summary>
             <h4>Hospedagem</h4>
             <ul id="mobileSheetStays"></ul>
             <h4>Alimentação</h4>
             <ul id="mobileSheetFood"></ul>
             <small>Consulte disponibilidade e funcionamento antes da visita.</small>
-          </section>
+          </details>
 
           <div class="mobile-sheet-meta">
             <span id="mobileSheetCoordinates"></span>
@@ -139,29 +138,32 @@
         <p id="offlineStatus" class="offline-status" role="status">Preparando mapa offline…</p>
         <section class="active-card" aria-live="polite">
           <div class="active-card-content">
-          <p class="step-label">ETAPA <span id="stageNumber">01</span></p>
-          <h2 id="cityName">Piaçabuçu</h2>
+          <figure class="city-cover">
+            <img id="cityPhoto" width="640" height="360" decoding="async" alt="">
+            <figcaption><h2 id="cityName">Piaçabuçu</h2></figcaption>
+          </figure>
+          <div id="cityPhotoCredit" class="city-photo-credit"></div>
           <p id="cityDescription"></p>
           <a id="cityPermalink" class="point-link" target="_blank" rel="noopener noreferrer">Link direto deste ponto ↗</a>
-          <section class="city-history" aria-label="Contexto histórico">
-            <h3>Durante a passagem do imperador</h3>
+          <details name="city-info-sidebar" class="city-history" aria-label="Contexto histórico">
+            <summary>Durante a passagem do imperador</summary>
             <p class="visit-status">Relação com a viagem: <strong id="cityVisitStatus"></strong></p>
             <p id="cityHistory"></p>
             <div id="cityHistorySources" class="city-history-sources"></div>
-          </section>
-          <section class="city-history" aria-label="Contexto regional">
-            <h3>O que conhecer na região</h3>
+          </details>
+          <details name="city-info-sidebar" class="city-history" aria-label="Contexto regional">
+            <summary>O que conhecer na região</summary>
             <p id="cityRegion"></p>
             <div id="cityRegionSources" class="city-history-sources"></div>
-          </section>
-          <section class="city-history city-hospitality" aria-label="Hospedagem e alimentação">
-            <h3>Onde ficar e comer</h3>
+          </details>
+          <details name="city-info-sidebar" class="city-history city-hospitality" aria-label="Hospedagem e alimentação">
+            <summary>Onde ficar e comer</summary>
             <h4>Hospedagem</h4>
             <ul id="cityStays"></ul>
             <h4>Alimentação</h4>
             <ul id="cityFood"></ul>
             <small>Consulte disponibilidade e funcionamento antes da visita.</small>
-          </section>
+          </details>
 
           <div class="coordinate-row">
             <span id="coordinates"></span>

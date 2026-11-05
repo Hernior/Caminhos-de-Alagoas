@@ -59,7 +59,7 @@ button, a { font: inherit; }
   overflow: hidden;
 }
 
-button:focus-visible, a:focus-visible, select:focus-visible,
+button:focus-visible, a:focus-visible, select:focus-visible, summary:focus-visible,
 .mobile-sheet-content h2:focus {
   outline: 3px solid var(--accent-strong);
   outline-offset: 3px;
@@ -303,7 +303,7 @@ h1 {
 .active-card-content {
   min-height: 0;
   overflow-y: auto;
-  padding: 26px;
+  padding: 18px;
 }
 
 .point-actions {
@@ -376,25 +376,65 @@ h1 {
 .point-actions a:nth-of-type(2) { color: #4285f4; }
 .point-actions a:nth-of-type(3) { color: #43c3e8; }
 
-.step-label {
-  margin: 0 0 8px;
-  color: var(--accent-strong);
-  font-size: .76rem;
-  font-weight: 900;
-  letter-spacing: .13em;
-}
-
 .active-card h2 {
   margin: 0;
   font-family: Georgia, "Times New Roman", serif;
-  font-size: clamp(2.1rem, 4vw, 3.7rem);
-  line-height: .98;
+  font-size: clamp(1.65rem, 4vw, 2.2rem);
+  line-height: 1.1;
 }
 
-.active-card-content > p:not(.step-label) {
+.active-card-content > p {
+  margin: 8px 0;
   color: var(--muted);
-  line-height: 1.65;
+  font-size: .85rem;
+  line-height: 1.45;
 }
+
+.city-cover {
+  position: relative;
+  height: clamp(104px, 13dvh, 128px);
+  margin: 0 0 5px;
+  overflow: hidden;
+  border-radius: 12px;
+  background: var(--panel-2);
+}
+
+.city-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.city-cover img[hidden] { display: none; }
+
+.city-cover figcaption {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  padding: 32px 12px 12px;
+  background: linear-gradient(transparent 15%, rgba(12, 16, 12, .3) 45%, rgba(12, 16, 12, .9));
+}
+
+.city-cover h2,
+.mobile-sheet-content .city-cover h2 {
+  margin: 0;
+  color: #fff9eb;
+  font-size: clamp(1.4rem, 4vw, 1.85rem);
+  line-height: 1.1;
+  text-shadow: 0 1px 4px #0008;
+}
+
+.city-photo-credit {
+  color: var(--muted);
+  font-size: .62rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.city-photo-credit a { color: inherit; text-underline-offset: 2px; }
+.city-photo-credit a:hover { color: var(--accent-strong); }
 
 .point-link {
   display: inline-block;
@@ -405,21 +445,34 @@ h1 {
 }
 
 .city-history {
-  margin-top: 18px;
-  padding-top: 16px;
+  margin-top: 6px;
   border-top: 1px solid var(--border);
 }
 
-.city-history h3 {
-  margin: 0 0 8px;
+.city-history summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 44px;
+  padding: 10px 0;
   color: var(--accent-strong);
-  font-size: .9rem;
+  font-size: .82rem;
+  font-weight: 750;
+  cursor: pointer;
+  list-style: none;
 }
+
+.city-history summary::-webkit-details-marker { display: none; }
+.city-history summary::after { content: "+"; font-size: 1.15rem; flex: none; }
+.city-history[open] > summary::after { content: "−"; }
+.city-history summary:hover { color: var(--text); }
 
 .city-history p {
   margin: 0;
   color: var(--text);
-  line-height: 1.55;
+  font-size: .83rem;
+  line-height: 1.45;
 }
 
 .city-history .visit-status {
@@ -457,8 +510,8 @@ h1 {
   display: flex;
   flex-direction: column;
   gap: 7px;
-  margin-top: 22px;
-  font-size: .78rem;
+  margin-top: 10px;
+  font-size: .7rem;
 }
 
 .coordinate-row span { color: var(--muted); }
@@ -897,7 +950,7 @@ footer {
     right: 78px;
     bottom: calc(14px + env(safe-area-inset-bottom));
     display: grid;
-    grid-template-columns: 42px minmax(0,1fr) 24px;
+    grid-template-columns: minmax(0,1fr) 24px;
     align-items: center;
     gap: 10px;
     min-height: 70px;
@@ -910,18 +963,6 @@ footer {
     box-shadow: 0 14px 40px rgba(0,0,0,.32);
     backdrop-filter: blur(14px);
     -webkit-backdrop-filter: blur(14px);
-  }
-
-  .mobile-city-step {
-    display: grid;
-    place-items: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: var(--accent);
-    color: #17130a;
-    font-size: .76rem;
-    font-weight: 900;
   }
 
   .mobile-city-text {
@@ -1133,25 +1174,21 @@ footer {
     background: #171c17;
   }
 
-  .mobile-sheet-kicker {
-    color: var(--accent-strong);
-    font-size: .72rem;
-    font-weight: 900;
-    letter-spacing: .12em;
-  }
-
   .mobile-sheet-content h2 {
-    margin: 5px 0 10px;
+    margin: 0 0 8px;
     font-family: Georgia, "Times New Roman", serif;
-    font-size: 2.25rem;
-    line-height: .98;
+    font-size: 1.8rem;
+    line-height: 1.1;
   }
 
   .mobile-sheet-content p {
     margin: 0;
     color: var(--muted);
-    line-height: 1.55;
+    font-size: .83rem;
+    line-height: 1.45;
   }
+
+  .mobile-sheet-content > p { margin-bottom: 6px; }
 
   .mobile-sheet-meta {
     display: grid;

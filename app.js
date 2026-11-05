@@ -5,6 +5,14 @@
     {
       name: "Piaçabuçu",
       slug: "piacabucu",
+      photo: {
+        "src": "assets/cities/piacabucu.jpg",
+        "alt": "Barcos na margem do rio São Francisco, em Piaçabuçu.",
+        "author": "Miltonviegas",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Pia%C3%A7abu%C3%A7u_(Rio_S%C3%A3o_Francisco).JPG"
+      },
       visitStatus: "Desembarque registrado",
       lat: -10.407753,
       lng: -36.435382,
@@ -19,6 +27,14 @@
     {
       name: "Penedo",
       slug: "penedo",
+      photo: {
+        "src": "assets/cities/penedo.jpg",
+        "alt": "Vista aérea do centro histórico e da Catedral de Penedo.",
+        "author": "Nathanael De Melo Araujo",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Centro_Hist%C3%B3rico,_Penedo-AL,_Brasil.jpg"
+      },
       visitStatus: "Visita registrada",
       lat: -10.290822,
       lng: -36.586380,
@@ -33,6 +49,14 @@
     {
       name: "Porto Real do Colégio",
       slug: "porto-real-do-colegio",
+      photo: {
+        "src": "assets/cities/porto-real-do-colegio.jpg",
+        "alt": "Orla de Porto Real do Colégio junto ao rio São Francisco.",
+        "author": "Autor não identificado",
+        "license": "CC0",
+        "licenseUrl": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Porto_real_colegio_vista_do_Rio_S%C3%A3o_Francisco_orla.jpg"
+      },
       visitStatus: "Visita registrada",
       lat: -10.188428,
       lng: -36.839223,
@@ -47,6 +71,14 @@
     {
       name: "São Brás",
       slug: "sao-bras",
+      photo: {
+        "src": "assets/cities/sao-bras.jpg",
+        "alt": "Vista do centro e da igreja de São Brás.",
+        "author": "Ray Duarte",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Centro_da_cidade_de_S%C3%A3o_Br%C3%A1s_Alagoas,_ano_de_2016.jpg"
+      },
       visitStatus: "Observado do rio",
       lat: -10.1141,
       lng: -36.8522,
@@ -61,6 +93,14 @@
     {
       name: "Traipu",
       slug: "traipu",
+      photo: {
+        "src": "assets/cities/traipu.jpg",
+        "alt": "Vista aérea de Traipu e do rio São Francisco.",
+        "author": "Mauriciograv",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Traipuaereo.png"
+      },
       visitStatus: "Visita registrada",
       lat: -9.971902,
       lng: -37.001545,
@@ -75,6 +115,14 @@
     {
       name: "Belo Monte",
       slug: "belo-monte",
+      photo: {
+        "src": "assets/cities/belo-monte.jpg",
+        "alt": "Vista de Belo Monte à margem do rio São Francisco.",
+        "author": "Joannes Paulus",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Belo_Monte_-_Alagoas.jpg"
+      },
       visitStatus: "Visita à região atual",
       lat: -9.8227,
       lng: -37.2770,
@@ -92,6 +140,14 @@
     {
       name: "Pão de Açúcar",
       slug: "pao-de-acucar",
+      photo: {
+        "src": "assets/cities/pao-de-acucar.jpg",
+        "alt": "Vista da cidade de Pão de Açúcar e de sua orla.",
+        "author": "Júlio C. Silva",
+        "license": "Public domain",
+        "licenseUrl": "https://commons.wikimedia.org/wiki/Commons:Public_domain",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:P%C3%A3o_de_A%C3%A7%C3%BAcar_(12).jpg"
+      },
       visitStatus: "Visita registrada",
       lat: -9.750112,
       lng: -37.435620,
@@ -109,6 +165,14 @@
     {
       name: "Piranhas",
       slug: "piranhas",
+      photo: {
+        "src": "assets/cities/piranhas.jpg",
+        "alt": "Igreja e escadaria no centro histórico de Piranhas.",
+        "author": "Marinelson Almeida",
+        "license": "CC BY 2.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by/2.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Centro_Hist%C3%B3rico_de_Piranhas_-_Alagoas_(17014585711).jpg"
+      },
       visitStatus: "Desembarque registrado",
       lat: -9.6240,
       lng: -37.7570,
@@ -123,6 +187,14 @@
     {
       name: "Olho d’Água do Casado",
       slug: "olho-dagua-do-casado",
+      photo: {
+        "src": "assets/cities/olho-dagua-do-casado.jpg",
+        "alt": "Paisagem do rio São Francisco em Olho d’Água do Casado.",
+        "author": "Paulo JC Nogueira",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Olho_d%27%C3%81gua_do_Casado_-_AL,_Brazil_-_panoramio_(1).jpg"
+      },
       visitStatus: "Relação local incerta",
       lat: -9.5036,
       lng: -37.8301,
@@ -143,6 +215,14 @@
     {
       name: "Delmiro Gouveia",
       slug: "delmiro-gouveia",
+      photo: {
+        "src": "assets/cities/delmiro-gouveia.jpg",
+        "alt": "Paisagem dos cânions do São Francisco em Delmiro Gouveia.",
+        "author": "Paulo JC Nogueira",
+        "license": "CC BY-SA 3.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/3.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Delmiro_Gouveia_-_State_of_Alagoas,_Brazil_-_panoramio_(1).jpg"
+      },
       visitStatus: "Referência à região atual",
       lat: -9.3841,
       lng: -37.9978,
@@ -163,6 +243,14 @@
     {
       name: "Água Branca",
       slug: "agua-branca",
+      photo: {
+        "src": "assets/cities/agua-branca.jpg",
+        "alt": "Fachada da Igreja Matriz de Nossa Senhora da Conceição, em Água Branca.",
+        "author": "Joannes Paulus",
+        "license": "CC BY-SA 4.0",
+        "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+        "sourceUrl": "https://commons.wikimedia.org/wiki/File:Igreja_Matriz_de_Nossa_Senhora_da_Concei%C3%A7%C3%A3o_-_%C3%81gua_Branca_AL.jpg"
+      },
       visitStatus: "Mencionada, sem visita à sede",
       lat: -9.2620,
       lng: -37.9380,
@@ -261,7 +349,6 @@
     cityWazeLink: document.getElementById("cityWazeLink"),
     coordinates: document.getElementById("coordinates"),
     osmLink: document.getElementById("osmLink"),
-    stageNumber: document.getElementById("stageNumber"),
     progressText: document.getElementById("progressText"),
     fitRoute: document.getElementById("fitRoute"),
     playRoute: document.getElementById("playRoute"),
@@ -280,11 +367,9 @@
     mobileActiveCity: document.getElementById("mobileActiveCity"),
     mobileCityName: document.getElementById("mobileCityName"),
     mobileCityStatus: document.getElementById("mobileCityStatus"),
-    mobileStage: document.getElementById("mobileStage"),
 
     mobileBottomSheet: document.getElementById("mobileBottomSheet"),
     mobileSheetHandle: document.getElementById("mobileSheetHandle"),
-    mobileSheetStage: document.getElementById("mobileSheetStage"),
     mobileSheetCity: document.getElementById("mobileSheetCity"),
     mobileSheetDescription: document.getElementById("mobileSheetDescription"),
     mobileSheetPermalink: document.getElementById("mobileSheetPermalink"),
@@ -590,10 +675,47 @@
     return index < 0 ? 0 : index;
   }
 
+  function showCityPhoto(imageId, creditId, city) {
+    const image = document.getElementById(imageId);
+    const credit = document.getElementById(creditId);
+    const photo = city.photo;
+    if (!image || !credit) return;
+
+    if (image.getAttribute("src") !== photo.src) {
+      image.hidden = true;
+      image.onload = () => { image.hidden = false; };
+      image.onerror = () => { image.hidden = true; };
+      image.alt = photo.alt;
+      image.src = photo.src;
+    }
+
+    const source = document.createElement("a");
+    source.textContent = photo.author;
+    source.href = photo.sourceUrl;
+    source.target = "_blank";
+    source.rel = "noopener noreferrer";
+    source.setAttribute("aria-label", `Foto de ${city.name}: ${photo.author}, no Wikimedia Commons`);
+    const license = document.createElement("a");
+    license.textContent = photo.license === "Public domain" ? "Domínio público" : photo.license;
+    license.href = photo.licenseUrl;
+    license.target = "_blank";
+    license.rel = "noopener noreferrer";
+    credit.replaceChildren("Foto: ", source, " · ", license);
+    credit.title = "Foto redimensionada e recomprimida; enquadramento ajustado no card.";
+  }
+
   function selectCity(index, pan = false) {
-    activeIndex = Math.max(0, Math.min(cities.length - 1, index));
+    const nextIndex = Math.max(0, Math.min(cities.length - 1, index));
+    if (nextIndex !== activeIndex) {
+      document.querySelectorAll(".city-history[open]").forEach((section) => { section.open = false; });
+      document.querySelectorAll(".active-card-content, .mobile-sheet-content").forEach((content) => {
+        content.scrollTop = 0;
+      });
+    }
+    activeIndex = nextIndex;
     const city = cities[activeIndex];
-    const stage = String(activeIndex + 1).padStart(2, "0");
+    showCityPhoto("cityPhoto", "cityPhotoCredit", city);
+    showCityPhoto("mobileSheetPhoto", "mobileSheetPhotoCredit", city);
     const verifiedText = city.verifiedPlaque ? "Placa verificada" : "Coordenada municipal";
     const osmHref = `https://www.openstreetmap.org/?mlat=${city.lat}&mlon=${city.lng}#map=16/${city.lat}/${city.lng}`;
     const pointUrl = new URL(window.location.href);
@@ -623,15 +745,12 @@
       el.coordinates.textContent = `${city.lat.toFixed(6)}, ${city.lng.toFixed(6)}${elevation}`;
     }
     if (el.osmLink) el.osmLink.href = osmHref;
-    if (el.stageNumber) el.stageNumber.textContent = stage;
     if (el.progressText) el.progressText.textContent = `${activeIndex + 1} de ${cities.length}`;
 
     if (el.mobileActiveCity) el.mobileActiveCity.textContent = city.name;
     if (el.mobileCityName) el.mobileCityName.textContent = city.name;
     if (el.mobileCityStatus) el.mobileCityStatus.textContent = verifiedText;
-    if (el.mobileStage) el.mobileStage.textContent = stage;
 
-    if (el.mobileSheetStage) el.mobileSheetStage.textContent = stage;
     if (el.mobileSheetCity) el.mobileSheetCity.textContent = city.name;
     if (el.mobileSheetDescription) el.mobileSheetDescription.textContent = city.description;
     if (el.mobileSheetHistory) el.mobileSheetHistory.textContent = city.history;

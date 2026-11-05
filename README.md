@@ -78,4 +78,6 @@ A referência pública consultada no desenvolvimento descreve um track Piaçabu�
 
 ## Licença / dados cartográficos
 
+As fotos das cidades são armazenadas em `assets/cities/` e ficam disponíveis offline. Cada card mostra autoria e licença com links para o Wikimedia Commons e os termos de uso. A relação completa de fontes e adaptações está em [Créditos das fotografias](assets/cities/CREDITS.md).
+
 Os dados de mapa derivam do OpenStreetMap e devem manter a atribuição visível. As licenças das bibliotecas locais estão em `vendor/leaflet/LICENSE` e `vendor/protomaps/LICENSE`.

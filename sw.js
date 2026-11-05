@@ -1,9 +1,21 @@
-const CACHE_NAME = "caminhos-alagoas-v6";
+const CACHE_NAME = "caminhos-alagoas-v8";
 const APP_FILES = [
   "./",
   "./index.html",
   "./style.css",
   "./app.js",
+  "./assets/cities/piacabucu.jpg",
+  "./assets/cities/penedo.jpg",
+  "./assets/cities/porto-real-do-colegio.jpg",
+  "./assets/cities/sao-bras.jpg",
+  "./assets/cities/traipu.jpg",
+  "./assets/cities/piranhas.jpg",
+  "./assets/cities/olho-dagua-do-casado.jpg",
+  "./assets/cities/delmiro-gouveia.jpg",
+  "./assets/cities/agua-branca.jpg",
+  "./assets/cities/belo-monte.jpg",
+  "./assets/cities/pao-de-acucar.jpg",
+
   "./manifest.webmanifest",
   "./rota-moto-asfalto.gpx",
   "./rota-bike-misto.gpx",
