@@ -15,6 +15,53 @@ test("uses the vehicle icon corresponding to the selected route", () => {
   assert.equal(context.vehicleIcon("bike-misto").html, "🚲");
 });
 
+test("keeps playback controls inside the open city dialog and restores them on close", () => {
+  function element() {
+    const classes = new Set();
+    return {
+      children: [],
+      classList: {
+        contains: (name) => classes.has(name),
+        toggle(name, enabled) { if (enabled) classes.add(name); else classes.delete(name); }
+      },
+      appendChild(child) { this.insertBefore(child, null); },
+      insertBefore(child, sibling) {
+        if (child.parentNode) child.parentNode.children.splice(child.parentNode.children.indexOf(child), 1);
+        const index = sibling ? this.children.indexOf(sibling) : this.children.length;
+        this.children.splice(index, 0, child);
+        child.parentNode = this;
+      },
+      contains() { return false; }, setAttribute() {}, focus() {}
+    };
+  }
+  const parent = element();
+  const controls = element();
+  const sibling = element();
+  parent.appendChild(controls);
+  parent.appendChild(sibling);
+  controls.nextSibling = sibling;
+  const sheet = element();
+  const context = {
+    el: {
+      playRoute: { closest: () => controls },
+      mobileBottomSheet: sheet, mobileCityCard: element()
+    },
+    document: { body: element() }, setMobileMenu() {}, refreshMapSize() {}
+  };
+  vm.createContext(context);
+  vm.runInContext(source.slice(source.indexOf('  const mapActions ='), source.indexOf('  function markerIcon(')), context);
+  context.setMobileSheet(true);
+  assert.equal(controls.parentNode, sheet);
+  assert.equal(sheet.inert, false);
+  context.setMobileSheet(false);
+  assert.equal(controls.parentNode, parent);
+  assert.equal(parent.children[0], controls);
+  assert.equal(parent.children[1], sibling);
+  assert.equal(sheet.inert, true);
+  context.setMobileSheet(true);
+  assert.equal(controls.parentNode, sheet);
+});
+
 function playback(points, milestones) {
   let frame;
   const state = { arrivals: [], position: null, completed: [], fitted: false };
@@ -94,6 +141,18 @@ test("stop cancels playback; restarting at the last city returns to the start", 
   run.context.activeIndex = 1;
   run.context.startPlaying();
   assert.equal(run.context.activeIndex, 0);
+});
+
+test("playback starts from the city selected after stopping", () => {
+  const run = playback([[0, 0], [3000, 0], [6000, 0]], [0, 1, 2]);
+  run.context.stopPlaying();
+  run.context.selectCity(1);
+  run.context.startPlaying();
+  assert.equal(run.context.playing, true);
+  assert.equal(run.state.position[0], 3000);
+  run.tick(0);
+  run.tick(1500);
+  assert.equal(run.state.position[0], 4500);
 });
 
 test("hidden tabs do not skip the route when returning", () => {

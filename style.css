@@ -1109,8 +1109,11 @@ footer {
   }
 
   body.mobile-sheet-open .map-actions {
-    opacity: .35;
-    pointer-events: none;
+    position: static;
+    display: flex;
+    flex: none;
+    align-self: flex-end;
+    margin-top: 12px;
   }
 }
 
