@@ -365,7 +365,15 @@
     }
   };
   const loadedRoutes = {};
-  let playTimer = null;
+  const playbackSpeed = 3000; // Metros por segundo na simulação.
+  const cityPauseMs = 1000;
+  const vehicle = L.marker(latLngs[0], {
+    icon: vehicleIcon("schematic"),
+    title: "Veículo percorrendo a rota",
+    interactive: false,
+    zIndexOffset: 1000
+  });
+  let playFrame = null;
   let playing = false;
   let refreshFrame = null;
   let fitPending = false;
@@ -398,11 +406,22 @@
     refreshMapSize(true);
   }
 
+  function vehicleIcon(mode) {
+    const icons = { schematic: "🚗", "moto-asfalto": "🏍️", "bike-misto": "🚲" };
+    return L.divIcon({
+      className: "route-vehicle",
+      html: icons[mode] || icons.schematic,
+      iconSize: [36, 36],
+      iconAnchor: [18, 18]
+    });
+  }
+
   function setRouteMode(mode) {
     const route = loadedRoutes[mode];
     if (mode !== "schematic" && !route) return;
 
     stopPlaying();
+    vehicle.setIcon(vehicleIcon(mode));
     activeRoutePoints = route ? route.points : latLngs;
     activeMilestones = route
       ? route.milestones
@@ -485,9 +504,9 @@
   }
 
   function stopPlaying() {
-    if (playTimer !== null) {
-      window.clearInterval(playTimer);
-      playTimer = null;
+    if (playFrame !== null) {
+      window.cancelAnimationFrame(playFrame);
+      playFrame = null;
     }
 
     playing = false;
@@ -647,10 +666,11 @@
       }
     });
 
-    const progressEnd = activeIndex === cities.length - 1
+    const progressEnd = !playing && activeIndex === cities.length - 1
       ? activeRoutePoints.length
       : activeMilestones[activeIndex] + 1;
     completedRoute.setLatLngs(activeRoutePoints.slice(0, progressEnd));
+    if (!playing) vehicle.remove();
 
     if (pan) {
       const targetZoom = city.verifiedPlaque ? 15 : 12;
@@ -680,17 +700,77 @@
     }
 
     setMobileSheet(false);
-    selectCity(activeIndex, true);
+    selectCity(activeIndex, false);
+    map.closePopup();
+    map.stop();
 
-    playTimer = window.setInterval(() => {
-      if (activeIndex >= cities.length - 1) {
-        stopPlaying();
-        fitWholeRoute();
-        return;
+    const distances = [0];
+    for (let index = 1; index < activeRoutePoints.length; index++) {
+      distances.push(distances[index - 1] + map.distance(activeRoutePoints[index - 1], activeRoutePoints[index]));
+    }
+
+    let segment = activeMilestones[activeIndex];
+    let travelled = distances[segment];
+    let pauseRemaining = cityPauseMs;
+    let previousTime = null;
+    vehicle.setLatLng(activeRoutePoints[segment]).addTo(map);
+    map.panTo(activeRoutePoints[segment], { animate: false });
+
+    function renderPosition() {
+      while (segment < activeRoutePoints.length - 1 && distances[segment + 1] <= travelled) segment++;
+      const start = activeRoutePoints[segment];
+      const end = activeRoutePoints[segment + 1] || start;
+      const length = (distances[segment + 1] || distances[segment]) - distances[segment];
+      const fraction = length > 0 ? (travelled - distances[segment]) / length : 0;
+      const position = [
+        start[0] + (end[0] - start[0]) * fraction,
+        start[1] + (end[1] - start[1]) * fraction
+      ];
+      vehicle.setLatLng(position);
+      completedRoute.setLatLngs([...activeRoutePoints.slice(0, segment + 1), position]);
+      map.panTo(position, { animate: false });
+    }
+
+    function advance(timestamp) {
+      playFrame = null;
+      if (!playing) return;
+      // Não avança o percurso enquanto a aba está em segundo plano.
+      let remaining = previousTime === null || document.hidden ? 0 : timestamp - previousTime;
+      previousTime = document.hidden ? null : timestamp;
+
+      while (remaining > 0) {
+        const paused = Math.min(pauseRemaining, remaining);
+        pauseRemaining -= paused;
+        remaining -= paused;
+        if (remaining <= 0) break;
+
+        const nextCity = activeIndex + 1;
+        const target = nextCity < cities.length
+          ? distances[activeMilestones[nextCity]]
+          : distances[distances.length - 1];
+        const duration = Math.max(0, target - travelled) / playbackSpeed * 1000;
+        if (remaining < duration) {
+          travelled += remaining / 1000 * playbackSpeed;
+          remaining = 0;
+        } else {
+          travelled = target;
+          remaining -= duration;
+          if (nextCity < cities.length) {
+            selectCity(nextCity, false);
+            pauseRemaining = cityPauseMs;
+          } else {
+            renderPosition();
+            stopPlaying();
+            fitWholeRoute();
+            return;
+          }
+        }
       }
+      renderPosition();
+      playFrame = window.requestAnimationFrame(advance);
+    }
 
-      selectCity(activeIndex + 1, true);
-    }, 1800);
+    playFrame = window.requestAnimationFrame(advance);
   }
 
   cities.forEach((city, index) => {

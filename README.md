@@ -8,7 +8,7 @@ Aplicação web estática com mapa interativo da Trilha do Imperador, de Piaçab
 - 11 cidades apresentadas em sequência;
 - marcadores numerados;
 - seleção manual de cada cidade;
-- modo automático "Percorrer rota";
+- modo automático "Percorrer rota", com veículo seguindo o traçado selecionado a 3 km/s na simulação e pausa de 1 segundo em cada cidade (no GPX, no ponto do trajeto mais próximo da cidade);
 - destaque progressivo do percurso;
 - seleção do traçado esquemático, da rota de moto em asfalto ou da rota mista para bike fornecidas em GPX;
 - layout responsivo para desktop e celular;
