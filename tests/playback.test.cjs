@@ -17,12 +17,12 @@ test("uses the vehicle icon corresponding to the selected route", () => {
 
 function playback(points, milestones) {
   let frame;
-  const state = { arrivals: [], position: null, completed: [], fitted: false };
+  const state = { arrivals: [], position: null, completed: [], fitted: false, panelsClosed: 0 };
   const context = {
     activeRoutePoints: points, activeMilestones: milestones,
     cities: milestones.map(() => ({})), activeIndex: 0,
-    playbackSpeed: 3000, cityPauseMs: 1000, playFrame: null, playing: false,
-    el: {}, document: { hidden: false, querySelectorAll: () => [] },
+    playbackSpeed: 3000, cityPauseMs: 1000, playFrame: null, playing: false, navigating: false,
+    el: { mobilePrevCity: {}, mobileNextCity: {} }, document: { hidden: false, querySelectorAll: () => [] },
     window: {
       requestAnimationFrame(callback) { frame = callback; return 1; },
       cancelAnimationFrame() { frame = null; }
@@ -36,13 +36,15 @@ function playback(points, milestones) {
       closePopup() {}, stop() {}, panTo() {}
     },
     completedRoute: { setLatLngs(points) { state.completed = points; } },
-    selectCity(index) { context.activeIndex = index; state.arrivals.push(index); },
-    setMobileSheet() {}, setMobileMenu() {}, fitWholeRoute() { state.fitted = true; }
+    selectCity(index) { context.activeIndex = index; state.arrivals.push(index); context.updateCityArrows(); },
+    followRoutePosition() {},
+    setMobileSheet() { state.panelsClosed++; }, setMobileMenu() { state.panelsClosed++; },
+    fitWholeRoute() { state.fitted = true; }
   };
   vm.createContext(context);
   vm.runInContext(
     source.slice(source.indexOf("  function stopPlaying()"), source.indexOf("  function showSourceLinks")) +
-    source.slice(source.indexOf("  function startPlaying()"), source.indexOf("  cities.forEach((city, index) => {")),
+    source.slice(source.indexOf("  function startPlaying("), source.indexOf("  cities.forEach((city, index) => {")),
     context
   );
   context.startPlaying();
@@ -118,4 +120,64 @@ test("hidden tabs do not skip the route when returning", () => {
   assert.equal(run.state.position[0], 0);
   run.tick(121500);
   assert.equal(run.state.position[0], 1500);
+});
+
+test("next arrow follows the track bends and stops at the adjacent city with the card open", () => {
+  const run = playback([[0, 0], [3000, 0], [3000, 0], [3000, 6000], [6000, 6000]], [0, 3, 4]);
+  const closed = run.state.panelsClosed;
+  run.context.startPlaying(1);
+  assert.equal(run.context.el.mobileNextCity.disabled, true);
+  run.tick(0);
+  run.tick(500);
+  assert.equal(run.state.position[0], 1500);
+  assert.equal(run.state.position[1], 0);
+  run.tick(1500);
+  assert.equal(run.state.position[0], 3000);
+  assert.equal(run.state.position[1], 1500);
+  run.tick(3000);
+  assert.equal(run.context.activeIndex, 1);
+  assert.equal(run.context.playing, false);
+  assert.equal(run.context.el.mobileNextCity.disabled, false);
+  assert.equal(run.state.position[1], 6000);
+  assert.equal(run.state.panelsClosed, closed);
+  assert.equal(run.state.fitted, false);
+  run.tick(60000);
+  assert.equal(run.context.activeIndex, 1);
+});
+
+test("previous arrow follows the same bends backwards without restarting at the last city", () => {
+  const run = playback([[0, 0], [3000, 0], [3000, 0], [3000, 6000]], [0, 3]);
+  run.context.stopPlaying();
+  run.context.selectCity(1);
+  run.context.startPlaying(0);
+  run.tick(0);
+  run.tick(500);
+  assert.equal(run.state.position[0], 3000);
+  assert.equal(run.state.position[1], 4500);
+  run.tick(2500);
+  assert.equal(run.state.position[0], 1500);
+  assert.equal(run.state.position[1], 0);
+  run.tick(3000);
+  assert.equal(run.state.position[0], 0);
+  assert.equal(run.context.activeIndex, 0);
+  assert.equal(run.context.playing, false);
+  assert.equal(run.context.el.mobilePrevCity.disabled, true);
+});
+
+test("arrow navigation handles coincident stops and can be interrupted", () => {
+  const run = playback([[0, 0], [0, 0], [3000, 0]], [0, 1, 2]);
+  run.context.startPlaying(1);
+  run.tick(0);
+  run.tick(16);
+  assert.equal(run.context.activeIndex, 1);
+  assert.equal(run.context.playing, false);
+  run.context.startPlaying(2);
+  run.tick(0);
+  run.tick(500);
+  const position = run.state.position[0];
+  run.context.stopPlaying();
+  run.tick(1000);
+  assert.equal(run.state.position[0], position);
+  assert.equal(run.context.navigating, false);
+  assert.equal(run.context.el.mobileNextCity.disabled, false);
 });

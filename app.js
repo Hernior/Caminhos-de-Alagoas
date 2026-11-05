@@ -460,6 +460,7 @@
   });
   let playFrame = null;
   let playing = false;
+  let navigating = false;
   let refreshFrame = null;
   let fitPending = false;
 
@@ -595,8 +596,10 @@
     }
 
     playing = false;
+    navigating = false;
 
     updatePlaybackButtons();
+    updateCityArrows();
   }
 
   function updatePlaybackButtons() {
@@ -606,6 +609,15 @@
       button.classList.toggle("is-playing", playing);
       button.setAttribute("aria-label", label);
       button.title = label;
+    });
+  }
+
+  function updateCityArrows() {
+    [el.mobilePrevCity, el.cityPrevCity].forEach((button) => {
+      if (button) button.disabled = navigating || activeIndex === 0;
+    });
+    [el.mobileNextCity, el.cityNextCity].forEach((button) => {
+      if (button) button.disabled = navigating || activeIndex === cities.length - 1;
     });
   }
 
@@ -769,12 +781,7 @@
         city.elevation !== null ? `Elevação: ${city.elevation} m` : "";
     }
     if (el.mobileSheetOsmLink) el.mobileSheetOsmLink.href = osmHref;
-    [el.mobilePrevCity, el.cityPrevCity].forEach((button) => {
-      if (button) button.disabled = activeIndex === 0;
-    });
-    [el.mobileNextCity, el.cityNextCity].forEach((button) => {
-      if (button) button.disabled = activeIndex === cities.length - 1;
-    });
+    updateCityArrows();
 
     document.querySelectorAll(".city-button").forEach((button, buttonIndex) => {
       const active = buttonIndex === activeIndex;
@@ -809,19 +816,55 @@
     }
   }
 
-  function startPlaying() {
+  function followRoutePosition(position) {
+    const panel = document.body.classList.contains("mobile-sheet-open") ? el.mobileBottomSheet
+      : document.body.classList.contains("mobile-menu-open") ? el.routeSidebar : null;
+    if (!panel) {
+      map.panTo(position, { animate: false });
+      return;
+    }
+
+    // Centraliza o veículo na maior área do mapa que o painel não cobre.
+    const bounds = map.getContainer().getBoundingClientRect();
+    const overlay = panel.getBoundingClientRect();
+    const left = Math.max(0, Math.min(bounds.width, overlay.left - bounds.left));
+    const right = Math.max(0, Math.min(bounds.width, overlay.right - bounds.left));
+    const top = Math.max(0, Math.min(bounds.height, overlay.top - bounds.top));
+    const bottom = Math.max(0, Math.min(bounds.height, overlay.bottom - bounds.top));
+    const areas = [
+      { x: 0, y: 0, width: bounds.width, height: top },
+      { x: 0, y: bottom, width: bounds.width, height: bounds.height - bottom },
+      { x: 0, y: 0, width: left, height: bounds.height },
+      { x: right, y: 0, width: bounds.width - right, height: bounds.height }
+    ];
+    const visible = areas.reduce((largest, area) =>
+      area.width * area.height > largest.width * largest.height ? area : largest);
+    const point = map.latLngToContainerPoint(position);
+    map.panTo(map.containerPointToLatLng([
+      point.x + bounds.width / 2 - (visible.x + visible.width / 2),
+      point.y + bounds.height / 2 - (visible.y + visible.height / 2)
+    ]), { animate: false });
+  }
+
+  function startPlaying(targetIndex = null) {
+    const singleLeg = targetIndex !== null;
+    if (singleLeg && (targetIndex < 0 || targetIndex >= cities.length || targetIndex === activeIndex)) return;
     stopPlaying();
 
-    if (activeIndex >= cities.length - 1) {
+    if (!singleLeg && activeIndex >= cities.length - 1) {
       activeIndex = 0;
     }
 
     playing = true;
+    navigating = singleLeg;
+    const direction = singleLeg && targetIndex < activeIndex ? -1 : 1;
 
     updatePlaybackButtons();
 
-    setMobileMenu(false);
-    setMobileSheet(false);
+    if (!singleLeg) {
+      setMobileMenu(false);
+      setMobileSheet(false);
+    }
     selectCity(activeIndex, false);
     map.closePopup();
     map.stop();
@@ -833,13 +876,14 @@
 
     let segment = activeMilestones[activeIndex];
     let travelled = distances[segment];
-    let pauseRemaining = cityPauseMs;
+    let pauseRemaining = singleLeg ? 0 : cityPauseMs;
     let previousTime = null;
     vehicle.setLatLng(activeRoutePoints[segment]).addTo(map);
-    map.panTo(activeRoutePoints[segment], { animate: false });
+    followRoutePosition(activeRoutePoints[segment]);
 
     function renderPosition() {
       while (segment < activeRoutePoints.length - 1 && distances[segment + 1] <= travelled) segment++;
+      while (segment > 0 && distances[segment] > travelled) segment--;
       const start = activeRoutePoints[segment];
       const end = activeRoutePoints[segment + 1] || start;
       const length = (distances[segment + 1] || distances[segment]) - distances[segment];
@@ -850,7 +894,7 @@
       ];
       vehicle.setLatLng(position);
       completedRoute.setLatLngs([...activeRoutePoints.slice(0, segment + 1), position]);
-      map.panTo(position, { animate: false });
+      followRoutePosition(position);
     }
 
     function advance(timestamp) {
@@ -866,19 +910,24 @@
         remaining -= paused;
         if (remaining <= 0) break;
 
-        const nextCity = activeIndex + 1;
+        const nextCity = singleLeg ? targetIndex : activeIndex + 1;
         const target = nextCity < cities.length
           ? distances[activeMilestones[nextCity]]
           : distances[distances.length - 1];
-        const duration = Math.max(0, target - travelled) / playbackSpeed * 1000;
+        const duration = Math.abs(target - travelled) / playbackSpeed * 1000;
         if (remaining < duration) {
-          travelled += remaining / 1000 * playbackSpeed;
+          travelled += direction * remaining / 1000 * playbackSpeed;
           remaining = 0;
         } else {
           travelled = target;
           remaining -= duration;
           if (nextCity < cities.length) {
             selectCity(nextCity, false);
+            if (singleLeg) {
+              renderPosition();
+              stopPlaying();
+              return;
+            }
             pauseRemaining = cityPauseMs;
           } else {
             renderPosition();
@@ -997,17 +1046,15 @@
 
   [el.mobilePrevCity, el.cityPrevCity].forEach((button) => {
     button?.addEventListener("click", () => {
-      if (activeIndex <= 0) return;
-      stopPlaying();
-      selectCity(activeIndex - 1, true);
+      if (navigating || activeIndex <= 0) return;
+      startPlaying(activeIndex - 1);
     });
   });
 
   [el.mobileNextCity, el.cityNextCity].forEach((button) => {
     button?.addEventListener("click", () => {
-      if (activeIndex >= cities.length - 1) return;
-      stopPlaying();
-      selectCity(activeIndex + 1, true);
+      if (navigating || activeIndex >= cities.length - 1) return;
+      startPlaying(activeIndex + 1);
     });
   });
 
