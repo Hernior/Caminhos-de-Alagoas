@@ -52,6 +52,7 @@ body {
 
 button, a { font: inherit; }
 
+.mobile-city-card,
 .mobile-sheet-handle,
 .mobile-close-button {
   cursor: pointer;

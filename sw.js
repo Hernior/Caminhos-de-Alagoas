@@ -1,4 +1,4 @@
-const CACHE_NAME = "caminhos-alagoas-v10";
+const CACHE_NAME = "caminhos-alagoas-v11";
 const APP_FILES = [
   "./",
   "./index.html",
