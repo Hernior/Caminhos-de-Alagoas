@@ -52,6 +52,11 @@ body {
 
 button, a { font: inherit; }
 
+.mobile-sheet-handle,
+.mobile-close-button {
+  cursor: pointer;
+}
+
 .icon-sprite {
   position: absolute;
   width: 0;
