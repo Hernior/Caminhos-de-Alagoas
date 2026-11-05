@@ -282,7 +282,7 @@ h1 {
 
 .point-actions {
   display: grid;
-  grid-template-columns: repeat(5, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 8px;
   padding: 12px;
   border-top: 1px solid var(--border);
@@ -307,6 +307,39 @@ h1 {
 .point-actions > *:disabled {
   opacity: .38;
   cursor: default;
+}
+
+.point-actions .point-arrow {
+  grid-column: span 2;
+  min-height: 52px;
+}
+
+.route-play,
+.point-actions .route-play {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--accent);
+  color: #17130a;
+  font-size: 0;
+}
+
+.route-play::before {
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 9px solid transparent;
+  border-bottom: 9px solid transparent;
+  border-left: 14px solid currentColor;
+  margin-left: 3px;
+}
+
+.route-play.is-playing::before {
+  width: 14px;
+  height: 14px;
+  border: 0;
+  margin-left: 0;
+  background: currentColor;
 }
 
 .point-actions svg {
@@ -749,14 +782,8 @@ footer {
     font-size: 24px;
   }
 
-  #playRoute::before {
-    content: "▶";
-    font-size: 18px;
-  }
-
-  #playRoute.is-playing::before {
-    content: "■";
-    font-size: 16px;
+  .map-actions .route-play {
+    display: flex;
   }
 
   .mobile-topbar {
@@ -1109,11 +1136,7 @@ footer {
   }
 
   body.mobile-sheet-open .map-actions {
-    position: static;
-    display: flex;
-    flex: none;
-    align-self: flex-end;
-    margin-top: 12px;
+    display: none;
   }
 }
 

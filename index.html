@@ -47,7 +47,7 @@
 
         <div class="map-actions">
           <button id="fitRoute" class="button button-secondary" type="button">Ver rota completa</button>
-          <button id="playRoute" class="button button-primary" type="button">▶ Percorrer rota</button>
+          <button id="playRoute" class="button button-primary route-play" type="button" aria-label="Percorrer rota" title="Percorrer rota">Percorrer rota</button>
         </div>
 
         <div class="legend">
@@ -105,11 +105,12 @@
 
         </div>
         <nav class="point-actions" aria-label="Controles do ponto selecionado">
-          <button id="mobilePrevCity" type="button" aria-label="Ponto anterior" title="Ponto anterior">←</button>
           <a id="mobileSheetOsmLink" target="_blank" rel="noopener noreferrer" aria-label="Abrir ponto no OpenStreetMap" title="OpenStreetMap"><svg aria-hidden="true"><use href="#icon-osm"/></svg></a>
           <a id="mobileSheetGoogleLink" target="_blank" rel="noopener noreferrer" aria-label="Navegar até o ponto pelo Google Maps" title="Google Maps"><svg aria-hidden="true"><use href="#icon-google-maps"/></svg></a>
           <a id="mobileSheetWazeLink" target="_blank" rel="noopener noreferrer" aria-label="Navegar até o ponto pelo Waze" title="Waze"><svg aria-hidden="true"><use href="#icon-waze"/></svg></a>
-          <button id="mobileNextCity" type="button" aria-label="Próximo ponto" title="Próximo ponto">→</button>
+          <button class="route-play" type="button" aria-label="Percorrer rota" title="Percorrer rota">Percorrer rota</button>
+          <button id="mobilePrevCity" class="point-arrow" type="button" aria-label="Ponto anterior" title="Ponto anterior">←</button>
+          <button id="mobileNextCity" class="point-arrow" type="button" aria-label="Próximo ponto" title="Próximo ponto">→</button>
         </nav>
       </section>
 
@@ -167,11 +168,12 @@
           </div>
           </div>
           <nav class="point-actions" aria-label="Controles do ponto selecionado">
-            <button id="cityPrevCity" type="button" aria-label="Ponto anterior" title="Ponto anterior">←</button>
             <a id="osmLink" target="_blank" rel="noopener noreferrer" aria-label="Abrir ponto no OpenStreetMap" title="OpenStreetMap"><svg aria-hidden="true"><use href="#icon-osm"/></svg></a>
             <a id="cityGoogleLink" target="_blank" rel="noopener noreferrer" aria-label="Navegar até o ponto pelo Google Maps" title="Google Maps"><svg aria-hidden="true"><use href="#icon-google-maps"/></svg></a>
             <a id="cityWazeLink" target="_blank" rel="noopener noreferrer" aria-label="Navegar até o ponto pelo Waze" title="Waze"><svg aria-hidden="true"><use href="#icon-waze"/></svg></a>
-            <button id="cityNextCity" type="button" aria-label="Próximo ponto" title="Próximo ponto">→</button>
+            <button class="route-play" type="button" aria-label="Percorrer rota" title="Percorrer rota">Percorrer rota</button>
+            <button id="cityPrevCity" class="point-arrow" type="button" aria-label="Ponto anterior" title="Ponto anterior">←</button>
+            <button id="cityNextCity" class="point-arrow" type="button" aria-label="Próximo ponto" title="Próximo ponto">→</button>
           </nav>
         </section>
 

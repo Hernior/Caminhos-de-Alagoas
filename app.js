@@ -472,20 +472,11 @@
     refreshMapSize();
   }
 
-  const mapActions = el.playRoute?.closest(".map-actions");
-  const mapActionsParent = mapActions?.parentNode;
-  const mapActionsNextSibling = mapActions?.nextSibling;
-
   function setMobileSheet(open) {
     if (!el.mobileBottomSheet || !el.mobileCityCard) return;
     if (document.body.classList.contains("mobile-sheet-open") === open) return;
     if (open) setMobileMenu(false);
     const focusWasInside = el.mobileBottomSheet.contains(document.activeElement);
-
-    if (mapActions) {
-      if (open) el.mobileBottomSheet.appendChild(mapActions);
-      else mapActionsParent.insertBefore(mapActions, mapActionsNextSibling);
-    }
 
     el.mobileBottomSheet.classList.toggle("open", open);
     el.mobileBottomSheet.setAttribute("aria-hidden", open ? "false" : "true");
@@ -520,11 +511,17 @@
 
     playing = false;
 
-    if (el.playRoute) {
-      el.playRoute.textContent = "▶ Percorrer rota";
-      el.playRoute.classList.remove("is-playing");
-      el.playRoute.setAttribute("aria-label", "Percorrer rota");
-    }
+    updatePlaybackButtons();
+  }
+
+  function updatePlaybackButtons() {
+    document.querySelectorAll(".route-play").forEach((button) => {
+      const label = playing ? "Parar percurso" : "Percorrer rota";
+      button.textContent = label;
+      button.classList.toggle("is-playing", playing);
+      button.setAttribute("aria-label", label);
+      button.title = label;
+    });
   }
 
   function showSourceLinks(container, sources) {
@@ -702,12 +699,9 @@
 
     playing = true;
 
-    if (el.playRoute) {
-      el.playRoute.textContent = "■ Parar";
-      el.playRoute.classList.add("is-playing");
-      el.playRoute.setAttribute("aria-label", "Parar percurso");
-    }
+    updatePlaybackButtons();
 
+    setMobileMenu(false);
     setMobileSheet(false);
     selectCity(activeIndex, false);
     map.closePopup();
@@ -843,9 +837,11 @@
     }
   });
 
-  el.playRoute?.addEventListener("click", () => {
-    if (playing) stopPlaying();
-    else startPlaying();
+  document.querySelectorAll(".route-play").forEach((button) => {
+    button.addEventListener("click", () => {
+      if (playing) stopPlaying();
+      else startPlaying();
+    });
   });
 
   el.fitRoute?.addEventListener("click", () => {
