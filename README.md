@@ -5,7 +5,7 @@ Aplicação web estática com mapa interativo da Trilha do Imperador, de Piaçab
 ## Recursos
 
 - mapa interativo com Leaflet e dados OpenStreetMap incluídos no projeto;
-- 11 cidades apresentadas em sequência;
+- 12 localidades apresentadas em sequência (11 municípios e o distrito de Entremontes);
 - marcadores numerados;
 - seleção manual de cada cidade; as setas percorrem o traçado até a cidade vizinha em 2 segundos, nos dois sentidos, mantendo o card aberto;
 - modo automático "Percorrer rota", com veículo seguindo o traçado selecionado a 3 km/s na simulação e pausa de 1 segundo em cada cidade (no GPX, no ponto do trajeto mais próximo da cidade);
@@ -50,10 +50,11 @@ A referência pública consultada no desenvolvimento descreve um track Piaçabu�
 5. Traipu
 6. Belo Monte
 7. Pão de Açúcar
-8. Piranhas
-9. Olho d’Água do Casado
-10. Delmiro Gouveia
-11. Água Branca
+8. Entremontes — Piranhas
+9. Piranhas
+10. Olho d’Água do Casado
+11. Delmiro Gouveia
+12. Água Branca
 
 
 ## Pontos de placa já verificados
@@ -66,6 +67,19 @@ A referência pública consultada no desenvolvimento descreve um track Piaçabu�
 | Traipu | -9.971902 | -37.001545 | 8 m |
 | Pão de Açúcar | -9.750112 | -37.435620 | 11 m |
 
+
+## Placas documentadas e referências de busca
+
+Os dados abaixo foram incorporados da pesquisa fornecida pelo usuário. O anexo não inclui os endereços completos das fontes históricas citadas; esses registros não foram verificados independentemente e não confirmam a permanência atual das placas.
+
+| Localidade | Informação incluída | Referência do marcador |
+|---|---|---|
+| Entremontes — Piranhas | Relato de 2017 de placa em fachada junto a uma mercearia, perto da praça e da Igreja de Nossa Senhora da Conceição; associação ao Sobrado de Anacleto Brandão ainda incerta | Povoado, aproximadamente -9.66992, -37.65855, conforme [Mapcarta / OpenStreetMap](https://mapcarta.com/pt/19147326); não representa a placa |
+| Piranhas | Registro de instalação de placa na expedição de 2009; investigar o Palácio Dom Pedro II e entorno | Centro Histórico, -9.625035, -37.754813; não representa a placa |
+| Delmiro Gouveia | Fotografias de 2010 e indicação de trevo próximo ao açude e ao Museu Regional, pelo acesso da Pedra Velha | Sede municipal mantida; coordenadas do trevo e da placa não confirmadas |
+| Belo Monte | Igreja de Nossa Senhora dos Prazeres, em Barra do Ipanema; marco histórico com placa não confirmada | Sede municipal mantida; não representa a igreja |
+
+Entremontes usa uma foto identificada como referência da sede de Piranhas e as indicações de hospedagem e alimentação dessa sede. Nenhum desses quatro registros foi classificado como placa com coordenada verificada. São Brás, Olho d’Água do Casado e Água Branca permanecem sem localização comprovada de placa.
 
 ## Tecnologias
 

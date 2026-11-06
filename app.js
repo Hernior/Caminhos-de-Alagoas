@@ -128,7 +128,8 @@
       lng: -37.2770,
       elevation: null,
       verifiedPlaque: false,
-      description: "Município da rota. Coordenada atual representa a sede municipal; ponto exato da placa ainda não confirmado.",
+      pointStatus: "Marco histórico; placa não confirmada",
+      description: "Referência histórica: Igreja de Nossa Senhora dos Prazeres, no alto do morro em Barra do Ipanema, próxima ao encontro dos rios Ipanema e São Francisco. Não há confirmação de placa da Trilha do Imperador. O marcador permanece na sede municipal, não na igreja; coordenadas do templo não confirmadas.",
       history: "O território do atual município de Belo Monte integrava a paisagem percorrida pelo imperador em 1859. Seu diário registra a visita ao morro da capela de Nossa Senhora dos Prazeres, junto à Barra do Ipanema, e a passagem por Lagoa Funda. A sede atual ainda não era chamada Belo Monte.",
       historySources: [
         { label: "Diário de D. Pedro II", url: "https://museuimperial.museus.gov.br/wp-content/uploads/2020/09/VOL02.pdf#page=22" },
@@ -163,6 +164,29 @@
       ]
     },
     {
+      name: "Entremontes — Piranhas",
+      slug: "entremontes",
+      photo: {
+        src: "assets/cities/piranhas.jpg",
+        alt: "Foto de referência do centro histórico da sede de Piranhas; não retrata a placa de Entremontes.",
+        author: "Marinelson Almeida",
+        license: "CC BY 2.0",
+        licenseUrl: "https://creativecommons.org/licenses/by/2.0",
+        sourceUrl: "https://commons.wikimedia.org/wiki/File:Centro_Hist%C3%B3rico_de_Piranhas_-_Alagoas_(17014585711).jpg"
+      },
+      visitStatus: "Hospedagem relatada",
+      lat: -9.66992,
+      lng: -37.65855,
+      elevation: null,
+      verifiedPlaque: false,
+      pointStatus: "Placa documentada; localização aproximada",
+      description: "A pesquisa fornecida registra um relato de 2017 sobre uma placa na fachada de uma casa histórica junto a uma mercearia em Entremontes. Procure no núcleo histórico, próximo à praça e à Igreja de Nossa Senhora da Conceição. O marcador representa o povoado, não a fachada; coordenadas da placa e sua permanência atual não confirmadas.",
+      history: "Segundo a pesquisa fornecida, a casa está associada à hospedagem de D. Pedro II em 1859. Um estudo identifica o antigo Sobrado de Anacleto Brandão como edifício ligado à hospedagem, mas não foi confirmado se corresponde à mesma fachada do relato da placa.",
+      historySources: [],
+      region: "Entremontes é um distrito de Piranhas à margem do São Francisco. O núcleo histórico e a Igreja de Nossa Senhora da Conceição são referências para a busca da placa. A foto deste card mostra a sede de Piranhas. A coordenada de referência do povoado vem do OpenStreetMap, consultado via Mapcarta.",
+      regionSources: [{ label: "Localização de referência de Entremontes (Mapcarta / OpenStreetMap)", url: "https://mapcarta.com/pt/19147326" }]
+    },
+    {
       name: "Piranhas",
       slug: "piranhas",
       photo: {
@@ -174,11 +198,12 @@
         "sourceUrl": "https://commons.wikimedia.org/wiki/File:Centro_Hist%C3%B3rico_de_Piranhas_-_Alagoas_(17014585711).jpg"
       },
       visitStatus: "Desembarque registrado",
-      lat: -9.6240,
-      lng: -37.7570,
+      lat: -9.625035,
+      lng: -37.754813,
       elevation: null,
       verifiedPlaque: false,
-      description: "Município da rota. Coordenada atual representa a sede municipal; ponto exato da placa ainda não confirmado.",
+      pointStatus: "Placa registrada em 2009; posição não localizada",
+      description: "A pesquisa fornecida cita uma reportagem de 21 de outubro de 2009 sobre a instalação de placas com o mapa do percurso na expedição que incluiu Piranhas. O Palácio Dom Pedro II, sede da Prefeitura, e seu entorno são referências para investigação. O marcador indica o Centro Histórico, não a placa; sua rua, fachada e permanência atual não foram confirmadas.",
       history: "Em 18 de outubro de 1859, o vapor Pirajá levou D. Pedro II até Piranhas de Cima, no trecho pedregoso do São Francisco. Dali, a comitiva deixou a navegação e seguiu a cavalo em direção à Cachoeira de Paulo Afonso.",
       historySources: [{ label: "Diário de D. Pedro II", url: "https://museuimperial.museus.gov.br/wp-content/uploads/2020/09/VOL02.pdf#page=24" }],
       region: "Caminhe pelo centro histórico de Piranhas e pela orla do São Francisco. Do atracadouro parte a Rota do Cangaço, passeio fluvial que pode incluir uma trilha até a região da Grota do Angico.",
@@ -228,7 +253,8 @@
       lng: -37.9978,
       elevation: null,
       verifiedPlaque: false,
-      description: "Município da rota. Coordenada atual representa a sede municipal; ponto exato da placa ainda não confirmado.",
+      pointStatus: "Placa documentada; coordenadas não confirmadas",
+      description: "A pesquisa fornecida cita fotografias de maio de 2010 de uma placa com o mapa dos Caminhos do Imperador. O fotógrafo indica um trevo próximo ao açude e ao Museu Regional Delmiro Gouveia, no acesso vindo da Pedra Velha. O marcador permanece na sede municipal, não no trevo. Coordenadas da placa e sua permanência atual não confirmadas; a menção à Rua Pedro II é menos segura.",
       history: "Em 1859, D. Pedro II atravessou o sertão rumo à Cachoeira de Paulo Afonso, na região que hoje inclui Delmiro Gouveia. A cidade ainda não existia com esse nome: o povoado de Pedra e sua ligação com o industrial Delmiro Gouveia surgiram décadas depois. O registro da visita imperial refere-se à cachoeira, não à sede atual.",
       historySources: [
         { label: "Diário de D. Pedro II", url: "https://museuimperial.museus.gov.br/wp-content/uploads/2020/09/VOL02.pdf#page=26" },
@@ -330,6 +356,13 @@
       food: [{ name: "Restaurante Engenho São Lourenço", place: "Água Branca", url: "https://engenhosaolourenco.com.br/o-restaurante/" }]
     }
   ];
+
+  // Entremontes usa as indicações de hospedagem e alimentação da sede de Piranhas.
+  hospitality.splice(cities.findIndex((city) => city.slug === "entremontes"), 0, hospitality[7]);
+
+  function pointStatus(city) {
+    return city.pointStatus || (city.verifiedPlaque ? "Placa verificada" : "Coordenada municipal");
+  }
 
   const el = {
     cityList: document.getElementById("cityList"),
@@ -527,7 +560,7 @@
     if (el.routeNoteText) {
       el.routeNoteText.textContent = route
         ? route.note
-        : "Os pontos com indicação ‘placa verificada’ usam coordenadas lidas diretamente nos registros fotográficos fornecidos. Os demais ainda usam a sede municipal como referência. A ligação entre cidades é esquemática e não substitui um arquivo GPX ou navegação viária.";
+        : "Os pontos com indicação ‘placa verificada’ usam coordenadas lidas diretamente nos registros fotográficos fornecidos. Os demais usam referências aproximadas, descritas em cada ponto; placa documentada não significa coordenada verificada. A ligação entre localidades é esquemática e não substitui um arquivo GPX ou navegação viária.";
     }
 
     setMobileMenu(false);
@@ -731,7 +764,7 @@
     const city = cities[activeIndex];
     showCityPhoto("cityPhoto", "cityPhotoCredit", city);
     showCityPhoto("mobileSheetPhoto", "mobileSheetPhotoCredit", city);
-    const verifiedText = city.verifiedPlaque ? "Placa verificada" : "Coordenada municipal";
+    const verifiedText = pointStatus(city);
     const osmHref = `https://www.openstreetmap.org/?mlat=${city.lat}&mlon=${city.lng}#map=16/${city.lat}/${city.lng}`;
     const pointUrl = new URL(window.location.href);
     pointUrl.hash = `ponto=${city.slug}`;
@@ -960,7 +993,7 @@
     let popup = `<strong>${index + 1}. ${city.name}</strong><br>`;
     popup += city.verifiedPlaque
       ? '<span class="popup-status">✓ Placa verificada</span><br>'
-      : '<span class="popup-status approx">• Coordenada municipal aproximada</span><br>';
+      : `<span class="popup-status approx">• ${pointStatus(city)}</span><br>`;
 
     if (city.elevation !== null) {
       popup += `Elevação: ${city.elevation} m<br>`;
@@ -993,7 +1026,7 @@
         <span class="city-title">
           ${city.name}
           <small class="${city.verifiedPlaque ? "verified-label" : "approx-label"}">
-            ${city.verifiedPlaque ? "✓ placa verificada" : "coordenada municipal"}
+            ${city.verifiedPlaque ? "✓ placa verificada" : pointStatus(city)}
           </small>
         </span>
         <span class="city-arrow">›</span>
