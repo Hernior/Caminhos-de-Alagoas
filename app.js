@@ -451,6 +451,7 @@
   };
   const loadedRoutes = {};
   const playbackSpeed = 3000; // Metros por segundo na simulação.
+  const arrowTransitionMs = 2000;
   const cityPauseMs = 1000;
   const vehicle = L.marker(latLngs[0], {
     icon: vehicleIcon("schematic"),
@@ -692,6 +693,8 @@
     const credit = document.getElementById(creditId);
     const photo = city.photo;
     if (!image || !credit) return;
+    const zoomButton = image.closest(".city-cover")?.querySelector(".city-photo-zoom");
+    zoomButton?.setAttribute("aria-label", `Ampliar foto de ${city.name}`);
 
     if (image.getAttribute("src") !== photo.src) {
       image.hidden = true;
@@ -876,6 +879,9 @@
 
     let segment = activeMilestones[activeIndex];
     let travelled = distances[segment];
+    const speed = singleLeg
+      ? Math.abs(distances[activeMilestones[targetIndex]] - travelled) / (arrowTransitionMs / 1000) || playbackSpeed
+      : playbackSpeed;
     let pauseRemaining = singleLeg ? 0 : cityPauseMs;
     let previousTime = null;
     vehicle.setLatLng(activeRoutePoints[segment]).addTo(map);
@@ -914,9 +920,10 @@
         const target = nextCity < cities.length
           ? distances[activeMilestones[nextCity]]
           : distances[distances.length - 1];
-        const duration = Math.abs(target - travelled) / playbackSpeed * 1000;
-        if (remaining < duration) {
-          travelled += direction * remaining / 1000 * playbackSpeed;
+        const duration = Math.abs(target - travelled) / speed * 1000;
+        // Tolera apenas o arredondamento numérico no instante de chegada.
+        if (duration - remaining > 0.000001) {
+          travelled += direction * remaining / 1000 * speed;
           remaining = 0;
         } else {
           travelled = target;
@@ -1062,7 +1069,23 @@
     setRouteMode(el.routeMode.value);
   });
 
+  const photoDialog = document.getElementById("cityPhotoDialog");
+  document.querySelectorAll(".city-photo-zoom").forEach((button) => {
+    button.addEventListener("click", () => {
+      const city = cities[activeIndex];
+      document.getElementById("expandedCityName").textContent = city.name;
+      showCityPhoto("expandedCityPhoto", "expandedPhotoCredit", city);
+      photoDialog.showModal();
+    });
+  });
+  document.getElementById("closeCityPhoto")?.addEventListener("click", () => photoDialog.close());
+  photoDialog?.addEventListener("click", (event) => {
+    if (event.target === photoDialog) photoDialog.close();
+  });
+
   document.addEventListener("keydown", (event) => {
+    // O dialog nativo gerencia Tab e Escape sem afetar o card abaixo.
+    if (photoDialog?.open) return;
     const openPanel = document.body.classList.contains("mobile-sheet-open")
       ? el.mobileBottomSheet
       : document.body.classList.contains("mobile-menu-open") ? el.routeSidebar : null;

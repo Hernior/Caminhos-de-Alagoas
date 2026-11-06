@@ -21,7 +21,7 @@ function playback(points, milestones) {
   const context = {
     activeRoutePoints: points, activeMilestones: milestones,
     cities: milestones.map(() => ({})), activeIndex: 0,
-    playbackSpeed: 3000, cityPauseMs: 1000, playFrame: null, playing: false, navigating: false,
+    playbackSpeed: 3000, arrowTransitionMs: 2000, cityPauseMs: 1000, playFrame: null, playing: false, navigating: false,
     el: { mobilePrevCity: {}, mobileNextCity: {} }, document: { hidden: false, querySelectorAll: () => [] },
     window: {
       requestAnimationFrame(callback) { frame = callback; return 1; },
@@ -129,12 +129,12 @@ test("next arrow follows the track bends and stops at the adjacent city with the
   assert.equal(run.context.el.mobileNextCity.disabled, true);
   run.tick(0);
   run.tick(500);
-  assert.equal(run.state.position[0], 1500);
+  assert.equal(run.state.position[0], 2250);
   assert.equal(run.state.position[1], 0);
   run.tick(1500);
   assert.equal(run.state.position[0], 3000);
-  assert.equal(run.state.position[1], 1500);
-  run.tick(3000);
+  assert.equal(run.state.position[1], 3750);
+  run.tick(2000);
   assert.equal(run.context.activeIndex, 1);
   assert.equal(run.context.playing, false);
   assert.equal(run.context.el.mobileNextCity.disabled, false);
@@ -153,15 +153,30 @@ test("previous arrow follows the same bends backwards without restarting at the 
   run.tick(0);
   run.tick(500);
   assert.equal(run.state.position[0], 3000);
-  assert.equal(run.state.position[1], 4500);
-  run.tick(2500);
-  assert.equal(run.state.position[0], 1500);
+  assert.equal(run.state.position[1], 3750);
+  run.tick(1500);
+  assert.equal(run.state.position[0], 2250);
   assert.equal(run.state.position[1], 0);
-  run.tick(3000);
+  run.tick(2000);
   assert.equal(run.state.position[0], 0);
   assert.equal(run.context.activeIndex, 0);
   assert.equal(run.context.playing, false);
   assert.equal(run.context.el.mobilePrevCity.disabled, true);
+});
+
+test("arrow transitions take two seconds regardless of distance", () => {
+  for (const distance of [1000, 99999]) {
+    const run = playback([[0, 0], [distance, 0]], [0, 1]);
+    run.context.startPlaying(1);
+    run.tick(0);
+    run.tick(1000);
+    assert.equal(run.state.position[0], distance / 2);
+    run.tick(1999);
+    assert.equal(run.context.playing, true);
+    run.tick(2000);
+    assert.equal(run.context.playing, false);
+    assert.equal(run.state.position[0], distance);
+  }
 });
 
 test("arrow navigation handles coincident stops and can be interrupted", () => {

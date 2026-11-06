@@ -73,6 +73,7 @@
           <figure class="city-cover">
             <img id="mobileSheetPhoto" width="640" height="360" decoding="async" alt="">
             <figcaption><h2 id="mobileSheetCity" tabindex="-1">Piaçabuçu</h2></figcaption>
+            <button class="city-photo-zoom" type="button" aria-label="Ampliar foto da cidade" aria-haspopup="dialog" aria-controls="cityPhotoDialog"></button>
           </figure>
           <div id="mobileSheetPhotoCredit" class="city-photo-credit"></div>
           <p id="mobileSheetDescription"></p>
@@ -141,6 +142,7 @@
           <figure class="city-cover">
             <img id="cityPhoto" width="640" height="360" decoding="async" alt="">
             <figcaption><h2 id="cityName">Piaçabuçu</h2></figcaption>
+            <button class="city-photo-zoom" type="button" aria-label="Ampliar foto da cidade" aria-haspopup="dialog" aria-controls="cityPhotoDialog"></button>
           </figure>
           <div id="cityPhotoCredit" class="city-photo-credit"></div>
           <p id="cityDescription"></p>
@@ -204,6 +206,19 @@
       </p>
     </footer>
   </div>
+
+  <dialog id="cityPhotoDialog" class="photo-dialog" aria-labelledby="expandedCityName">
+    <div class="photo-dialog-content">
+      <button id="closeCityPhoto" class="photo-dialog-close" type="button" aria-label="Fechar foto ampliada" title="Fechar foto">×</button>
+      <figure>
+        <img id="expandedCityPhoto" decoding="async" alt="">
+        <figcaption>
+          <h2 id="expandedCityName"></h2>
+          <div id="expandedPhotoCredit" class="city-photo-credit"></div>
+        </figcaption>
+      </figure>
+    </div>
+  </dialog>
 
   <script src="vendor/leaflet/leaflet.js"></script>
   <script src="vendor/protomaps/protomaps-leaflet.js"></script>

@@ -7,7 +7,7 @@ Aplicação web estática com mapa interativo da Trilha do Imperador, de Piaçab
 - mapa interativo com Leaflet e dados OpenStreetMap incluídos no projeto;
 - 11 cidades apresentadas em sequência;
 - marcadores numerados;
-- seleção manual de cada cidade; as setas percorrem o traçado até a cidade vizinha, nos dois sentidos, mantendo o card aberto;
+- seleção manual de cada cidade; as setas percorrem o traçado até a cidade vizinha em 2 segundos, nos dois sentidos, mantendo o card aberto;
 - modo automático "Percorrer rota", com veículo seguindo o traçado selecionado a 3 km/s na simulação e pausa de 1 segundo em cada cidade (no GPX, no ponto do trajeto mais próximo da cidade);
 - destaque progressivo do percurso;
 - seleção do traçado esquemático, da rota de moto em asfalto ou da rota mista para bike fornecidas em GPX;
